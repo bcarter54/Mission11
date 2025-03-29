@@ -41,8 +41,27 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                     {b.title}
                   </h5>
                   <ul className="list-unstyled flex-grow-1">
-                    <li><strong>Author:</strong> {b.author}</li>
-                    <li><strong>Price:</strong> ${b.price}</li>
+                  <li>
+                <strong>Author: </strong>{b.author}
+              </li>
+              <li>
+                <strong>Publisher: </strong>{b.publisher}
+              </li>
+              <li>
+                <strong>ISBN: </strong>{b.isbn}
+              </li>
+              <li>
+                <strong>Classification: </strong>{b.classification}
+              </li>
+              <li>
+                <strong>Category: </strong>{b.category}
+              </li>
+              <li>
+                <strong>Page Count: </strong>{b.pageCount}
+              </li>
+              <li>
+                <strong>Price: </strong>${b.price}
+              </li>
                   </ul>
                   <button className="btn btn-success w-100 mt-auto" 
                     onClick={() => navigate(`/buy/${b.title}/${b.bookID}/${b.price}`)}>
