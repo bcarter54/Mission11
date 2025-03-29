@@ -1,11 +1,17 @@
 import { useState } from "react";
 import CategoryFilter from "../components/CategoryFilter";
 import BookList from "../components/BookList";
+import WelcomeBand from "../components/WelcomeBand";
+import CartSummary from "../components/CartSummary";
 
 function ProjectsPage() {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([])
     return(
         <>
+        <div className="container mt-4">
+            <CartSummary />
+            <WelcomeBand />
+        
         <div className="row">
             <div className="col-md-3">
                 <CategoryFilter
@@ -17,6 +23,7 @@ function ProjectsPage() {
                 <BookList selectedCategories={selectedCategories} 
                 />
             </div>
+        </div>
         </div>
         </>
     );
