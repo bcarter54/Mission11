@@ -13,13 +13,13 @@ function ProjectsPage() {
             <WelcomeBand />
         
         <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-4 mx-auto">
                 <CategoryFilter
                     selectedCategories={selectedCategories}
                     setSelectedCategories={setSelectedCategories}
                     />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-8">
                 <BookList selectedCategories={selectedCategories} 
                 />
             </div>

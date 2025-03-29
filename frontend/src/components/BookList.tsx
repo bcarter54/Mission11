@@ -14,8 +14,8 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   useEffect(() => {
     const fetchBooks = async () => {
       const categoryParams = selectedCategories
-      .map((cat) => `bookTypes=${encodeURIComponent(cat)}`)
-      .join('&')
+        .map((cat) => `bookTypes=${encodeURIComponent(cat)}`)
+        .join('&');
 
       const response = await fetch(
         `https://localhost:5000/api/Book/AllBooks?pageCount=${pageCount}&pageNum=${pageNum}&sortOrder=${sortOrder}${selectedCategories.length ? `&${categoryParams}` : ''}`
@@ -31,69 +31,49 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
 
   return (
     <>
-      {books.map((b) => (
-        <div id="projectCard" className="card" key={b.bookID}>
-          <h3 className="card-title">{b.title}</h3>
-          <div className="card-body">
-            <ul className="list-unstyled">
-              <li>
-                <strong>Author: </strong>
-                {b.author}
-              </li>
-              <li>
-                <strong>Publisher: </strong>
-                {b.publisher}
-              </li>
-              <li>
-                <strong>ISBN: </strong>
-                {b.isbn}
-              </li>
-              <li>
-                <strong>Classification: </strong>
-                {b.classification}
-              </li>
-              <li>
-                <strong>Category: </strong>
-                {b.category}
-              </li>
-              <li>
-                <strong>Page Count: </strong>
-                {b.pageCount}
-              </li>
-              <li>
-                <strong>Price: </strong>
-                ${b.price}
-              </li>
-            </ul>
-
-            <button className='btn btn-success'
-            onClick={() => 
-              navigate(`/buy/${b.title}/${b.bookID}/${b.price}`)
-            }>Add to Cart</button>
-          </div>
+      <div className="container">
+        <div className="d-flex flex-column">
+          {books.map((b) => (
+            <div className="mb-4" key={b.bookID}>
+              <div className="card shadow p-3" style={{ width: '18rem' }}>
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title" style={{ whiteSpace: 'normal' }}>
+                    {b.title}
+                  </h5>
+                  <ul className="list-unstyled flex-grow-1">
+                    <li><strong>Author:</strong> {b.author}</li>
+                    <li><strong>Price:</strong> ${b.price}</li>
+                  </ul>
+                  <button className="btn btn-success w-100 mt-auto" 
+                    onClick={() => navigate(`/buy/${b.title}/${b.bookID}/${b.price}`)}>
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
 
-      <button onClick={() => setPageNum(pageNum - 1)} disabled={pageNum === 1}>
-        Previous
-      </button>
-
-      {[...Array(totalPages)].map((_, index) => (
-        <button
-          key={index + 1}
-          onClick={() => setPageNum(index + 1)}
-          disabled={pageNum === index + 1}
-        >
-          {index + 1}
+      <div className="pagination-controls mt-4">
+        <button onClick={() => setPageNum(pageNum - 1)} disabled={pageNum === 1}>
+          Previous
         </button>
-      ))}
 
-      <button
-        onClick={() => setPageNum(pageNum + 1)}
-        disabled={pageNum === totalPages}
-      >
-        Next
-      </button>
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => setPageNum(index + 1)}
+            disabled={pageNum === index + 1}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button onClick={() => setPageNum(pageNum + 1)} disabled={pageNum === totalPages}>
+          Next
+        </button>
+      </div>
 
       <br />
       <label>
