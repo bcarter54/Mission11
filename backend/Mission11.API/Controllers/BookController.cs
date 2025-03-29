@@ -16,9 +16,14 @@ namespace Mission11.API.Controllers
         }
 
         [HttpGet("AllBooks")]
-        public IActionResult GetBooks(int pageCount = 10, int pageNum = 1, string sortOrder = "asc")
+        public IActionResult GetBooks(int pageCount = 10, int pageNum = 1, string sortOrder = "asc", [FromQuery] List<string>? bookTypes = null)
         {
             var query = _context.Books.AsQueryable();
+
+            if (bookTypes != null && bookTypes.Any())
+            {
+                query = query.Where(b => bookTypes.Contains(b.Category));
+            }
 
             // Always sort by title
             query = sortOrder.ToLower() == "asc"
@@ -30,7 +35,7 @@ namespace Mission11.API.Controllers
                 .Take(pageCount)
                 .ToList();
 
-            var totalNumBooks = _context.Books.Count();
+            var totalNumBooks = query.Count();
 
             return Ok(new { Books = books, TotalNum = totalNumBooks });
         }
