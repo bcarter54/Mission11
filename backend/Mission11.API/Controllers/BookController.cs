@@ -35,5 +35,13 @@ namespace Mission11.API.Controllers
             return Ok(new { Books = books, TotalNum = totalNumBooks });
         }
 
+        [HttpGet("GetBookTypes")]
+        public IActionResult GetBookTypes()
+        {
+            var bookTypes= _context.Books.Select(b => b.Category).Distinct().ToList();
+            
+            return Ok(bookTypes);
+        }
+
     }
 }
