@@ -8,13 +8,14 @@ function BuyPage() {
     const navigate = useNavigate();
     const {title, bookId, price} = useParams();
     const {addToCart} = useCart();
-    const [bookPrice, setBookPrice] = useState<number>(0);
+    const [quantity, setQuantity] = useState<number>(1);
 
     const handleAddToCart = () => {
         const newItem: CartItem = {
             bookId: Number(bookId),
             title: title || "No Book Found",
-            price: Number(price)
+            price: Number(price),
+            quantity,
         };
         addToCart(newItem);
         navigate('/cart');
@@ -26,7 +27,8 @@ function BuyPage() {
         <h2>Purchase {title}</h2>
 
         <div>
-            Price: {price}
+            Price: ${price}
+            <br />
             <br />
             <button className="btn btn-success" onClick={handleAddToCart}>
             Add to Cart
