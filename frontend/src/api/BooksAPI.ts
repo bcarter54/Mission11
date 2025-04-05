@@ -5,7 +5,7 @@ interface FetchBooksResponse {
   totalNum: number;
 }
 
-const API_URL = 'https://localhost:5000/api/Book';
+const API_URL = 'https://mission13-carter-backend-fnefgncffhebgdfc.eastus-01.azurewebsites.net/api/Book';
 
 export const fetchBooks = async (
   pageCount: number,
@@ -47,7 +47,46 @@ export const addBook = async (newBook: Book): Promise<Book> => {
 
     return await response.json();
   } catch (error) {
-    console.error('Error adding project', error);
+    console.error('Error adding book', error);
+    throw error;
+  }
+};
+
+export const updateBook = async (
+  bookId: number,
+  updatedBook: Book
+): Promise<Book> => {
+  try {
+    const response = await fetch(`${API_URL}/UpdateBook/${bookId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedBook),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add book');
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.error('Error adding book:', err);
+    throw err;
+  }
+};
+
+export const deleteBook = async (bookId: number): Promise<void> => {
+  try {
+    const response = await fetch(`${API_URL}/DeleteBook/${bookId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete book');
+    }
+  } catch (error) {
+    console.error('Error deleting book:', error);
     throw error;
   }
 };
