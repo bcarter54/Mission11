@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000")
+            policy.WithOrigins("http://localhost:3000", "https://mission13-carter-backend-fnefgncffhebgdfc.eastus-01.azurewebsites.net/")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         }));
