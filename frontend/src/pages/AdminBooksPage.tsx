@@ -5,6 +5,7 @@ import { deleteBook, fetchBooks } from '../api/BooksAPI';
 import { Book } from '../types/Book';
 import NewBookForm from '../components/NewBookForm';
 import EditBookForm from '../components/EditBookForm';
+import { useNavigate, useNavigationType } from 'react-router-dom';
 
 const AdminBooksPage = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -15,6 +16,7 @@ const AdminBooksPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const navigate = useNavigate();
 
   const [editingBook, setEditingBook] = useState<Book | null>(null);
 
@@ -52,6 +54,7 @@ const AdminBooksPage = () => {
   if (error) return <p className="text-red-500">Error: {error}</p>;
   return (
     <>
+    <button onClick={() => navigate('/')}>Back to Book List</button>
     <h1>Admin Page</h1>
     {!showForm && (
         <button
