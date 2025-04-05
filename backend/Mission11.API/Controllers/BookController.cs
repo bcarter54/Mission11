@@ -48,5 +48,13 @@ namespace Mission11.API.Controllers
             return Ok(bookTypes);
         }
 
+        [HttpPost("AddBook")]
+        public IActionResult AddBook([FromBody] Book newBook)
+        {
+            _context.Books.Add(newBook);
+            _context.SaveChanges();
+            return Ok(newBook);
+        }
+
     }
 }
