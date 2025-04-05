@@ -8,7 +8,7 @@ function BuyPage() {
     const navigate = useNavigate();
     const {title, bookId, price} = useParams();
     const {addToCart} = useCart();
-    const [quantity, setQuantity] = useState<number>(1);
+    const [quantity] = useState<number>(1);
 
     const handleAddToCart = () => {
         const newItem: CartItem = {
